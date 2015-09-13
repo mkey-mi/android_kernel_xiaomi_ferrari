@@ -127,7 +127,8 @@
 
 	restart@4ab000 {
 		compatible = "qcom,pshold";
-		reg = <0x4ab000 0x4>;
+		reg = <0x4ab000 0x4>,
+		      <0x193d100 0x4>;
 	};
 
 	timer@b120000 {
@@ -1081,7 +1082,16 @@
 		interrupt-names = "hc_irq", "pwr_irq";
 
 		qcom,bus-width = <8>;
-		qcom,cpu-dma-latency-us = <701>;
+
+		qcom,qos-planes = <3>;
+		qcom,cpu-dma-latency-us = <2 401 701>;
+		qcom,cpu-dma-latency-us-r = <2 401 701>;
+		qcom,cpu-dma-latency-us-w = <2 401 701>;
+		qcom,cpu-affinity-r = "affine_cores";
+		qcom,cpu-affinity-mask-r = <0xf0>;
+
+		qcom,modified-dynamic-qos;
+
 		qcom,msm-bus,name = "sdhc1";
 		qcom,msm-bus,num-cases = <8>;
 		qcom,msm-bus,num-paths = <1>;
@@ -1840,4 +1850,3 @@
 	};
 };
 
-#include "msm8939-gpu.dtsi"
